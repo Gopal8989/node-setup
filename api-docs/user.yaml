@@ -1,0 +1,167 @@
+paths:
+  /login:
+    post:
+      tags:
+        - Auth
+      summary: User login
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            "$ref": "#/definitions/login"
+      responses:
+        '200':
+          description: OK
+  /logout:
+    post:
+      tags:
+        - Auth
+      summary: User logout            
+      security:
+        - BearerAuth: []
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OK
+  /forgot-password:
+    post:
+      tags:
+        - Auth
+      summary: User forgot password
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            "$ref": "#/definitions/forgotPassword"
+      responses:
+        '200':
+          description: OK
+  /reset-password:
+    post:
+      tags:
+        - Auth
+      summary: User reset password
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            "$ref": "#/definitions/resetPassword"
+      responses:
+        '200':
+          description: OK
+  /change-password:
+    post:
+      tags:
+        - Auth
+      summary: User change password
+      produces:
+        - application/json        
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            "$ref": "#/definitions/changePassword"
+      responses:
+        '200':
+          description: OK
+  /user-profile:
+    put:
+      tags:
+        - Auth
+      summary: User profile updated
+      produces:
+        - application/json        
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            "$ref": "#/definitions/userProfileUpdate"
+      responses:
+        '200':
+          description: OK
+    get:
+      tags:
+        - Auth
+      summary: User details
+      security:
+        - BearerAuth: []
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OK
+definitions:
+  login:
+    type: object
+    properties:
+      email:
+        type: string
+        format: email        
+        required: true
+      password:
+        type: string
+        required: true
+  changePassword:
+    type: object
+    properties:
+      oldPassword:
+        type: string
+        required: true
+      password:
+        type: string
+        required: true
+      confirmPassword:
+        type: string
+        required: true
+  resetPassword:
+    type: object
+    properties:
+      token:
+        type: string
+        required: true
+      password:
+        type: string
+        required: true
+      confirmPassword:
+        type: string
+        required: true
+  forgotPassword:
+    type: object
+    properties:
+      email:
+        type: string
+        format: email        
+        required: true
+  userProfileUpdate:
+    type: object
+    properties:
+      name:
+        type: string
+        # format: email        
+        required: true
+      phoneNumber:
+        type: string
+        required: true
+      countryCode:
+        type: string
+        required: true
+      email:
+        type: string
+        format: email        
+        required: true
